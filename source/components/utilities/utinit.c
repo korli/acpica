@@ -316,7 +316,11 @@ AcpiUtInitGlobals (
 
     /* Global Lock support */
 
+#ifdef _KERNEL_MODE
+    AcpiGbl_GlobalLockSemaphore         = -1;
+#else
     AcpiGbl_GlobalLockSemaphore         = NULL;
+#endif
     AcpiGbl_GlobalLockMutex             = NULL;
     AcpiGbl_GlobalLockAcquired          = FALSE;
     AcpiGbl_GlobalLockHandle            = 0;

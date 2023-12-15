@@ -293,7 +293,11 @@ AcpiUtDeleteInternalObj (
             /* Global Lock has extra semaphore */
 
             (void) AcpiOsDeleteSemaphore (AcpiGbl_GlobalLockSemaphore);
+#ifdef _KERNEL_MODE
+            AcpiGbl_GlobalLockSemaphore = -1;
+#else
             AcpiGbl_GlobalLockSemaphore = NULL;
+#endif
 
             AcpiOsDeleteMutex (Object->Mutex.OsMutex);
             AcpiGbl_GlobalLockMutex = NULL;
